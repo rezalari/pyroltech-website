@@ -1,0 +1,6 @@
+# Vendored AI design skill (dev tool, not part of the site). ~3MB of CSV data.
+.claude/skills/
+
+# OS / editor
+.DS_Store
+Thumbs.db
