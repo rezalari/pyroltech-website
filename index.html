@@ -8,18 +8,18 @@
 <style>
   :root{
     --bg:#07090A; --bg2:#0B0E0D; --ink:#F4F7F5; --mut:#9fb0a8; --line:#1e2823;
-    --teal:#108C73; --green:#3E9E54; --neon:#B6FF3C;
+    --teal:#108C73; --green:#37E07F; --neon:#B6FF3C;
   }
-  body.light{
-    --bg:#EFF3F0; --bg2:#F6F9F7; --ink:#16211F; --mut:#5B6B66; --line:#dbe7e1;
-  }
+  body.light{ --bg:#EFF3F0; --bg2:#F6F9F7; --ink:#16211F; --mut:#5B6B66; --line:#dbe7e1; }
   *{box-sizing:border-box;}
   html,body{margin:0;height:100%;}
   body{background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;overflow-x:hidden;cursor:none;}
   a{color:inherit;text-decoration:none;}
-  #scene{position:fixed;inset:0;z-index:0;}
-  .noise-fallback{position:fixed;inset:0;display:none;align-items:center;justify-content:center;color:var(--mut);z-index:0;}
-  /* top bar */
+  #globeViz{position:fixed;inset:0;z-index:0;}
+  #scrim{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(90deg, var(--bg) 4%, rgba(7,9,10,.72) 34%, rgba(7,9,10,0) 66%);}
+  body.light #scrim{background:linear-gradient(90deg, var(--bg) 4%, rgba(239,243,240,.78) 34%, rgba(239,243,240,0) 66%);}
+  .fallback{position:fixed;inset:0;display:none;align-items:center;justify-content:center;color:var(--mut);z-index:0;}
   .top{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:22px 40px;}
   .brand{font-weight:800;letter-spacing:1.5px;font-size:19px;}
   .brand .hex{color:var(--neon);}
@@ -27,29 +27,26 @@
   .nav span:hover{color:var(--ink);}
   .toggle{font-size:12.5px;color:var(--mut);border:1px solid var(--line);border-radius:20px;padding:7px 14px;display:flex;align-items:center;gap:8px;}
   .toggle .dot{width:8px;height:8px;border-radius:50%;background:var(--neon);}
-  /* hero */
-  .hero{position:relative;z-index:3;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 40px;max-width:760px;pointer-events:none;}
+  .hero{position:relative;z-index:3;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 40px;max-width:720px;pointer-events:none;}
   .hero *{pointer-events:auto;}
   .eyebrow{color:var(--neon);font-size:13px;font-weight:700;letter-spacing:4px;margin-bottom:18px;opacity:0;}
-  h1{font-size:clamp(38px,6vw,76px);line-height:1.02;font-weight:800;letter-spacing:-1.5px;margin:0 0 22px;}
+  h1{font-size:clamp(38px,6vw,74px);line-height:1.02;font-weight:800;letter-spacing:-1.5px;margin:0 0 22px;}
   h1 .ln{display:block;opacity:0;transform:translateY(26px);}
   h1 .accent{color:var(--neon);}
-  .sub{font-size:clamp(15px,1.6vw,19px);color:var(--mut);max-width:520px;margin:0 0 30px;opacity:0;}
+  .sub{font-size:clamp(15px,1.6vw,19px);color:var(--mut);max-width:500px;margin:0 0 30px;opacity:0;}
   .cta{display:flex;gap:16px;flex-wrap:wrap;opacity:0;}
   .btn{background:var(--neon);color:#07090A;font-weight:800;font-size:15px;padding:14px 26px;border-radius:30px;display:inline-block;}
   .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);}
   .scrollcue{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:4;color:var(--mut);font-size:11px;letter-spacing:3px;text-align:center;opacity:0;}
   .scrollcue .arr{display:block;margin:8px auto 0;width:10px;height:10px;border-right:2px solid var(--neon);border-bottom:2px solid var(--neon);transform:rotate(45deg);animation:bob 1.6s infinite;}
   @keyframes bob{0%,100%{transform:rotate(45deg) translate(0,0);}50%{transform:rotate(45deg) translate(4px,4px);}}
-  /* region panel */
-  .region{position:fixed;left:40px;bottom:40px;z-index:6;background:rgba(11,14,13,.85);border:1px solid var(--neon);border-radius:12px;padding:16px 20px;max-width:280px;opacity:0;transform:translateY(12px);transition:.35s;backdrop-filter:blur(8px);}
-  body.light .region{background:rgba(246,249,247,.9);}
+  .region{position:fixed;left:40px;bottom:40px;z-index:6;background:rgba(11,14,13,.86);border:1px solid var(--neon);border-radius:12px;padding:16px 20px;max-width:280px;opacity:0;transform:translateY(12px);transition:.35s;backdrop-filter:blur(8px);}
+  body.light .region{background:rgba(246,249,247,.92);}
   .region.show{opacity:1;transform:none;}
   .region .rk{color:var(--neon);font-size:12px;font-weight:800;letter-spacing:2px;}
   .region .rt{font-size:16px;font-weight:700;margin:6px 0 4px;}
   .region .rd{font-size:13px;color:var(--mut);}
   .region .rx{position:absolute;top:10px;right:14px;color:var(--mut);cursor:none;}
-  /* logo wall */
   .wall{position:relative;z-index:3;background:var(--bg2);border-top:1px solid var(--line);padding:90px 40px 100px;text-align:center;}
   .wall h2{font-size:clamp(22px,3vw,34px);font-weight:800;letter-spacing:-.5px;margin:0 0 8px;}
   .wall p{color:var(--mut);margin:0 0 44px;font-size:15px;}
@@ -58,24 +55,20 @@
   .logo:hover{filter:none;opacity:1;border-color:var(--neon);transform:translateY(-3px);}
   .uni-row{margin-top:28px;color:var(--mut);font-size:12.5px;letter-spacing:1px;}
   .foot{position:relative;z-index:3;background:var(--bg2);color:var(--mut);font-size:12.5px;text-align:center;padding:26px;border-top:1px solid var(--line);}
-  /* custom cursor */
   .cur{position:fixed;top:0;left:0;width:30px;height:30px;border:1.5px solid var(--neon);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:9999;transition:width .2s,height .2s,background .2s;mix-blend-mode:difference;}
   .cur.big{width:54px;height:54px;background:rgba(182,255,60,.12);}
   .curdot{position:fixed;top:0;left:0;width:5px;height:5px;background:var(--neon);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:9999;}
   @media(hover:none){.cur,.curdot{display:none;} body{cursor:auto;}}
-  @media(max-width:720px){.nav{display:none;}.grid{grid-template-columns:repeat(3,1fr);}.hero{padding:0 24px;}}
+  @media(min-width:721px){ #globeViz{transform:translate(21%, 7%);} }
+  @media(max-width:720px){.nav{display:none;}.grid{grid-template-columns:repeat(3,1fr);}.hero{padding:0 24px;}#globeViz{transform:translateY(20%);opacity:.55;}#scrim{background:linear-gradient(180deg,var(--bg) 30%,transparent 70%);}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script type="importmap">
-{ "imports": {
-  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-}}
-</script>
+<script src="https://cdn.jsdelivr.net/npm/globe.gl"></script>
 </head>
 <body>
-<canvas id="scene"></canvas>
-<div class="noise-fallback" id="fallback">Your browser could not start WebGL. The Pyroltech globe needs a modern browser.</div>
+<div id="globeViz"></div>
+<div id="scrim"></div>
+<div class="fallback" id="fallback">Could not start WebGL. The Pyroltech globe needs a modern browser.</div>
 
 <header class="top">
   <div class="brand">PYR<span class="hex">&#11042;</span>LTECH</div>
@@ -117,228 +110,119 @@
 <div class="cur" id="cur"></div>
 <div class="curdot" id="curdot"></div>
 
-<script type="module">
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
-const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const canvas = document.getElementById('scene');
-let renderer;
-try { renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true}); }
-catch(e){ document.getElementById('fallback').style.display='flex'; }
-
-if (renderer){
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.setSize(innerWidth, innerHeight);
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 100);
-  camera.position.set(0,0,4.4);
-
-  const globe = new THREE.Group();
-  scene.add(globe);
-
-  const R = 1.55, N = 7200;
-  const ends = new Float32Array(N*3), starts = new Float32Array(N*3);
-  const lands = new Float32Array(N), rnds = new Float32Array(N);
-  const GA = Math.PI*(1+Math.sqrt(5));
-  function landVal(x,y,z){
-    return Math.sin(x*1.8+1.0)*Math.cos(y*1.6-0.5)
-         + Math.sin(z*2.2+2.0)*Math.cos(x*1.3)
-         + Math.sin(y*2.5)*Math.cos(z*1.1+1.5);
-  }
-  for(let i=0;i<N;i++){
-    const t=i/(N-1), inc=Math.acos(1-2*t), az=GA*i;
-    const x=Math.sin(inc)*Math.cos(az), y=Math.sin(inc)*Math.sin(az), z=Math.cos(inc);
-    ends[i*3]=x*R; ends[i*3+1]=y*R; ends[i*3+2]=z*R;
-    lands[i] = landVal(x,y,z) > 0.30 ? 1.0 : 0.0;
-    rnds[i] = Math.random();
-    // dust cloud start
-    const dx=Math.random()*2-1, dy=Math.random()*2-1, dz=Math.random()*2-1;
-    const dl=Math.hypot(dx,dy,dz)||1, rr=R*(2.0+Math.random()*1.8);
-    starts[i*3]=dx/dl*rr; starts[i*3+1]=dy/dl*rr; starts[i*3+2]=dz/dl*rr;
-  }
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.BufferAttribute(ends,3));
-  geo.setAttribute('aStart', new THREE.BufferAttribute(starts,3));
-  geo.setAttribute('aLand', new THREE.BufferAttribute(lands,1));
-  geo.setAttribute('aRand', new THREE.BufferAttribute(rnds,1));
-
-  const uniforms = {
-    uProgress:{value: reduced?1:0}, uTime:{value:0}, uSize:{value:7.0},
-    uPixelRatio:{value: Math.min(window.devicePixelRatio,2)},
-    uWaste:{value:new THREE.Color('#6b7a6f')},
-    uLand:{value:new THREE.Color('#9CFF57')},
-    uOcean:{value:new THREE.Color('#0E8C73')}
-  };
-  const mat = new THREE.ShaderMaterial({
-    uniforms, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending,
-    vertexShader:`
-      attribute vec3 aStart; attribute float aLand; attribute float aRand;
-      uniform float uProgress, uTime, uSize, uPixelRatio;
-      varying float vLand, vRand;
-      void main(){
-        vLand=aLand; vRand=aRand;
-        float p = uProgress;
-        vec3 pos = mix(aStart, position, p);
-        pos *= 1.0 + 0.02*sin(uTime*0.8 + aRand*6.2831)*p;
-        vec4 mv = modelViewMatrix * vec4(pos,1.0);
-        float size = uSize * (0.65 + 0.7*aLand);
-        gl_PointSize = size * uPixelRatio * (300.0 / -mv.z);
-        gl_Position = projectionMatrix * mv;
-      }`,
-    fragmentShader:`
-      precision mediump float;
-      uniform float uProgress, uTime;
-      uniform vec3 uWaste, uLand, uOcean;
-      varying float vLand, vRand;
-      void main(){
-        vec2 c = gl_PointCoord - vec2(0.5);
-        float d = length(c);
-        if(d>0.5) discard;
-        float a = smoothstep(0.5,0.0,d);
-        vec3 clean = mix(uOcean, uLand, vLand);
-        float tw = 0.75 + 0.25*sin(uTime*1.5 + vRand*40.0);
-        vec3 col = mix(uWaste, clean*tw, uProgress);
-        gl_FragColor = vec4(col, a);
-      }`
-  });
-  globe.add(new THREE.Points(geo, mat));
-
-  // atmosphere
-  const atmo = new THREE.Mesh(
-    new THREE.SphereGeometry(R*1.22, 64, 64),
-    new THREE.ShaderMaterial({
-      transparent:true, blending:THREE.AdditiveBlending, side:THREE.BackSide, depthWrite:false,
-      uniforms:{uColor:{value:new THREE.Color('#15c79a')}},
-      vertexShader:`varying vec3 vN; void main(){ vN=normalize(normalMatrix*normal); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
-      fragmentShader:`varying vec3 vN; uniform vec3 uColor; void main(){ float i=pow(0.62-dot(vN,vec3(0.0,0.0,1.0)),3.0); gl_FragColor=vec4(uColor,1.0)*clamp(i,0.0,1.0);}`
-    })
-  );
-  globe.add(atmo);
-
-  // regions
-  const regions = [
-    {k:'IRAN', t:'Iran', d:'Two decades of pyrolysis know-how.', lat:35.7, lon:51.4},
-    {k:'TURKEY', t:'Turkey, Afyon', d:'Plant commissioned 2026.', lat:38.7, lon:30.5},
-    {k:'NETHERLANDS', t:'Netherlands', d:'European technology lineage.', lat:52.1, lon:5.3},
-    {k:'KOREA', t:'South Korea', d:'Process engineering partners.', lat:37.5, lon:127.0},
-    {k:'JAPAN', t:'Japan', d:'Advanced thermal conversion.', lat:35.7, lon:139.7},
-    {k:'CHINA', t:'China', d:'Scale manufacturing base.', lat:39.9, lon:116.4},
-    {k:'CANADA', t:'Canada', d:'Current deployments and research.', lat:49.3, lon:-123.1}
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var regions = [
+    {k:'IRAN', t:'Iran', d:'Two decades of pyrolysis know-how.', lat:35.7, lng:51.4},
+    {k:'TURKEY', t:'Turkey, Afyon', d:'Plant commissioned 2026.', lat:38.7, lng:30.5},
+    {k:'NETHERLANDS', t:'Netherlands', d:'European technology lineage.', lat:52.1, lng:5.3},
+    {k:'KOREA', t:'South Korea', d:'Process engineering partners.', lat:37.5, lng:127.0},
+    {k:'JAPAN', t:'Japan', d:'Advanced thermal conversion.', lat:35.7, lng:139.7},
+    {k:'CHINA', t:'China', d:'Scale manufacturing base.', lat:39.9, lng:116.4},
+    {k:'CANADA', t:'Canada', d:'Current deployments and research.', lat:49.3, lng:-123.1}
   ];
-  function ll(lat,lon,r){
-    const phi=(90-lat)*Math.PI/180, th=(lon+180)*Math.PI/180;
-    return new THREE.Vector3(-r*Math.sin(phi)*Math.cos(th), r*Math.cos(phi), r*Math.sin(phi)*Math.sin(th));
-  }
-  const pins=[];
-  const pinGeo=new THREE.SphereGeometry(0.03,12,12);
-  const pinMat=new THREE.MeshBasicMaterial({color:0xB6FF3C});
-  regions.forEach(rg=>{
-    const v=ll(rg.lat,rg.lon,R*1.01);
-    const m=new THREE.Mesh(pinGeo,pinMat); m.position.copy(v); m.userData=rg;
-    globe.add(m); pins.push(m);
-  });
-  // arcs between regions (the journey)
-  const arcs=[];
-  for(let i=0;i<regions.length-1;i++){
-    const a=ll(regions[i].lat,regions[i].lon,R*1.01), b=ll(regions[i+1].lat,regions[i+1].lon,R*1.01);
-    const mid=a.clone().add(b).multiplyScalar(0.5).normalize().multiplyScalar(R*1.4);
-    const curve=new THREE.QuadraticBezierCurve3(a,mid,b);
-    const g=new THREE.BufferGeometry().setFromPoints(curve.getPoints(60));
-    const l=new THREE.Line(g,new THREE.LineBasicMaterial({color:0xB6FF3C,transparent:true,opacity:0.5,blending:THREE.AdditiveBlending,depthWrite:false}));
-    g.setDrawRange(0, reduced?61:0); globe.add(l); arcs.push(l);
+  var arcs = [];
+  for (var i=0; i<regions.length-1; i++){
+    arcs.push({ sl:regions[i].lat, sg:regions[i].lng, el:regions[i+1].lat, eg:regions[i+1].lng });
   }
 
-  const controls=new OrbitControls(camera,renderer.domElement);
-  controls.enableZoom=false; controls.enablePan=false; controls.enableDamping=true;
-  controls.dampingFactor=0.06; controls.rotateSpeed=0.5;
-  controls.autoRotate=!reduced; controls.autoRotateSpeed=0.55;
-  controls.minPolarAngle=0.5; controls.maxPolarAngle=2.6;
+  if (!window.Globe){ document.getElementById('fallback').style.display='flex'; return; }
+  var HEX = '#37E07F', PIN = '#B6FF3C', ATM = '#16d39a';
 
-  // raycast pins
-  const ray=new THREE.Raycaster(); ray.params.Points={threshold:0.1};
-  const mouse=new THREE.Vector2();
-  const panel=document.getElementById('regionPanel');
+  var world = new Globe(document.getElementById('globeViz'))
+    .backgroundColor('rgba(0,0,0,0)')
+    .showGlobe(true)
+    .showAtmosphere(true)
+    .atmosphereColor(ATM)
+    .atmosphereAltitude(0.16)
+    .hexPolygonResolution(3)
+    .hexPolygonMargin(0.28)
+    .hexPolygonUseDots(false)
+    .hexPolygonColor(function(){ return HEX; })
+    .hexPolygonAltitude(0.012)
+    .pointsData(regions)
+    .pointLat('lat').pointLng('lng')
+    .pointColor(function(){ return PIN; })
+    .pointAltitude(0.045).pointRadius(0.55)
+    .onPointClick(function(p){ showRegion(p); })
+    .arcsData(arcs)
+    .arcStartLat('sl').arcStartLng('sg').arcEndLat('el').arcEndLng('eg')
+    .arcColor(function(){ return [PIN, ATM]; })
+    .arcStroke(0.45).arcAltitudeAutoScale(0.45)
+    .arcDashLength(0.5).arcDashGap(0.25).arcDashAnimateTime(reduced?0:2600);
+
+  // dark planet body
+  try {
+    var gm = world.globeMaterial();
+    gm.color.set('#0a1310'); gm.emissive.set('#04140d'); gm.emissiveIntensity = 0.25; gm.shininess = 2;
+  } catch(e){}
+
+  // continents from real country GeoJSON
+  fetch('https://unpkg.com/three-globe/example/datasets/ne_110m_admin_0_countries.geojson')
+    .then(function(r){ return r.json(); })
+    .then(function(geo){ world.hexPolygonsData(geo.features); })
+    .catch(function(){ /* leave globe without hexes if offline */ });
+
+  // controls: drag + slow auto-rotate, no zoom
+  var c = world.controls();
+  c.enableZoom = false; c.enableDamping = true; c.dampingFactor = 0.08;
+  c.autoRotate = !reduced; c.autoRotateSpeed = 0.55;
+  world.pointOfView({ lat: 22, lng: 30, altitude: 2.3 });
+
+  function fit(){ world.width(window.innerWidth).height(window.innerHeight); }
+  fit(); window.addEventListener('resize', fit);
+
+  // region panel
+  var panel = document.getElementById('regionPanel');
   function showRegion(rg){
-    document.getElementById('rk').textContent=rg.k;
-    document.getElementById('rt').textContent=rg.t;
-    document.getElementById('rd').textContent=rg.d;
+    document.getElementById('rk').textContent = rg.k;
+    document.getElementById('rt').textContent = rg.t;
+    document.getElementById('rd').textContent = rg.d;
     panel.classList.add('show');
   }
-  document.getElementById('regionClose').onclick=()=>panel.classList.remove('show');
-  renderer.domElement.addEventListener('click',e=>{
-    mouse.x=(e.clientX/innerWidth)*2-1; mouse.y=-(e.clientY/innerHeight)*2+1;
-    ray.setFromCamera(mouse,camera);
-    const hit=ray.intersectObjects(pins);
-    if(hit.length) showRegion(hit[0].object.userData);
-  });
+  document.getElementById('regionClose').onclick = function(){ panel.classList.remove('show'); };
 
-  addEventListener('resize',()=>{
-    camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix();
-    renderer.setSize(innerWidth,innerHeight);
-    uniforms.uPixelRatio.value=Math.min(window.devicePixelRatio,2);
-  });
-
-  const clock=new THREE.Clock();
-  function loop(){
-    uniforms.uTime.value=clock.getElapsedTime();
-    const s=1+Math.sin(clock.getElapsedTime()*2.0)*0.12;
-    pins.forEach(p=>p.scale.setScalar(s));
-    controls.update();
-    renderer.render(scene,camera);
-    requestAnimationFrame(loop);
-  }
-  loop();
-
-  // intro
-  if(window.gsap && !reduced){
-    gsap.to(uniforms.uProgress,{value:1,duration:2.8,ease:'power2.out'});
-    arcs.forEach((l,i)=>{
-      const o={v:0};
-      gsap.to(o,{v:61,duration:1.2,delay:1.6+i*0.18,ease:'power1.inOut',
-        onUpdate:()=>l.geometry.setDrawRange(0,Math.floor(o.v))});
-    });
-    gsap.to('#eyebrow',{opacity:1,duration:.8,delay:.3});
-    gsap.to('h1 .ln',{opacity:1,y:0,duration:.9,stagger:.13,delay:.45,ease:'power3.out'});
-    gsap.to('#sub',{opacity:1,duration:.8,delay:1.1});
-    gsap.to('#cta',{opacity:1,duration:.8,delay:1.3});
-    gsap.to('#scrollcue',{opacity:1,duration:.8,delay:1.8});
-  } else {
-    document.querySelectorAll('#eyebrow,h1 .ln,#sub,#cta,#scrollcue').forEach(el=>{el.style.opacity=1;el.style.transform='none';});
-  }
-
-  // theme toggle
-  document.getElementById('themeToggle').addEventListener('click',()=>{
+  // theme toggle (updates globe colors too)
+  document.getElementById('themeToggle').addEventListener('click', function(){
     document.body.classList.toggle('light');
-    const light=document.body.classList.contains('light');
-    document.getElementById('themeLabel').textContent=light?'Light':'Dark';
-    uniforms.uWaste.value.set(light?'#a9b6ad':'#6b7a6f');
-    uniforms.uOcean.value.set(light?'#0E8C73':'#0E8C73');
-    atmo.material.uniforms.uColor.value.set(light?'#2bb892':'#15c79a');
+    var light = document.body.classList.contains('light');
+    document.getElementById('themeLabel').textContent = light ? 'Light' : 'Dark';
+    HEX = light ? '#0E9E63' : '#37E07F';
+    ATM = light ? '#2bb892' : '#16d39a';
+    world.hexPolygonColor(function(){ return HEX; }).atmosphereColor(ATM);
+    try { world.globeMaterial().color.set(light ? '#dfeee7' : '#0a1310'); } catch(e){}
   });
-}
 
-// custom cursor
-const cur=document.getElementById('cur'), dot=document.getElementById('curdot');
-if(window.gsap && matchMedia('(hover:hover)').matches){
-  addEventListener('mousemove',e=>{
-    gsap.to(cur,{x:e.clientX,y:e.clientY,duration:.5,ease:'power3.out'});
-    gsap.set(dot,{x:e.clientX,y:e.clientY});
-  });
-  document.querySelectorAll('.magnetic,a,.nav span,.logo').forEach(el=>{
-    el.addEventListener('mouseenter',()=>cur.classList.add('big'));
-    el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
-  });
-}
+  // hero text intro
+  if (window.gsap && !reduced){
+    gsap.to('#eyebrow',{opacity:1,duration:.8,delay:.2});
+    gsap.to('h1 .ln',{opacity:1,y:0,duration:.9,stagger:.13,delay:.35,ease:'power3.out'});
+    gsap.to('#sub',{opacity:1,duration:.8,delay:1.0});
+    gsap.to('#cta',{opacity:1,duration:.8,delay:1.2});
+    gsap.to('#scrollcue',{opacity:1,duration:.8,delay:1.7});
+  } else {
+    ['#eyebrow','#sub','#cta','#scrollcue'].forEach(function(s){ var e=document.querySelector(s); if(e) e.style.opacity=1; });
+    document.querySelectorAll('h1 .ln').forEach(function(e){ e.style.opacity=1; e.style.transform='none'; });
+  }
 
-// logo placeholders (swap with Fred's list: name, region, role, image)
-const regionsTag=['US','Canada','Turkey','Netherlands','Korea','Japan','China','Canada','Turkey','US','China','Korea'];
-const grid=document.getElementById('logoGrid');
-for(let i=0;i<12;i++){
-  const d=document.createElement('div'); d.className='logo';
-  d.textContent='LOGO'; grid.appendChild(d);
-}
+  // custom cursor
+  var cur = document.getElementById('cur'), dot = document.getElementById('curdot');
+  if (window.gsap && matchMedia('(hover:hover)').matches){
+    window.addEventListener('mousemove', function(e){
+      gsap.to(cur,{x:e.clientX,y:e.clientY,duration:.5,ease:'power3.out'});
+      gsap.set(dot,{x:e.clientX,y:e.clientY});
+    });
+    document.querySelectorAll('.magnetic,a,.nav span,.logo').forEach(function(el){
+      el.addEventListener('mouseenter', function(){ cur.classList.add('big'); });
+      el.addEventListener('mouseleave', function(){ cur.classList.remove('big'); });
+    });
+  }
+
+  // logo placeholders (swap with Fred's list)
+  var grid = document.getElementById('logoGrid');
+  for (var j=0; j<12; j++){ var dv=document.createElement('div'); dv.className='logo'; dv.textContent='LOGO'; grid.appendChild(dv); }
+})();
 </script>
 </body>
 </html>
