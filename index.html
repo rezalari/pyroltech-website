@@ -7,32 +7,36 @@
 <title>Pyroltech, The world makes waste. We make it valuable.</title>
 <style>
   :root{
-    --bg:#07090A; --bg2:#0B0E0D; --ink:#F4F7F5; --mut:#9fb0a8; --line:#1e2823;
-    --teal:#108C73; --green:#37E07F; --neon:#B6FF3C;
+    --bg:#07090A; --bg2:#0B0F0D; --bg3:#0E1411; --ink:#F4F7F5; --mut:#9fb0a8; --line:#1e2823;
+    --teal:#108C73; --green:#4DF08A; --neon:#B6FF3C;
   }
-  body.light{ --bg:#EFF3F0; --bg2:#F6F9F7; --ink:#16211F; --mut:#5B6B66; --line:#dbe7e1; }
+  body.light{ --bg:#EEF3F0; --bg2:#F5F9F6; --bg3:#E8F0EB; --ink:#16211F; --mut:#566; --line:#dbe7e1; }
   *{box-sizing:border-box;}
-  html,body{margin:0;height:100%;}
+  html,body{margin:0;}
   body{background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;overflow-x:hidden;cursor:none;}
   a{color:inherit;text-decoration:none;}
+  /* globe */
   #globeViz{position:fixed;inset:0;z-index:0;}
-  #scrim{position:fixed;inset:0;z-index:1;pointer-events:none;
-    background:linear-gradient(90deg, var(--bg) 4%, rgba(7,9,10,.72) 34%, rgba(7,9,10,0) 66%);}
-  body.light #scrim{background:linear-gradient(90deg, var(--bg) 4%, rgba(239,243,240,.78) 34%, rgba(239,243,240,0) 66%);}
+  #scrim{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,var(--bg) 4%,rgba(7,9,10,.7) 32%,rgba(7,9,10,0) 64%);}
+  body.light #scrim{background:linear-gradient(90deg,var(--bg) 4%,rgba(238,243,240,.78) 32%,rgba(238,243,240,0) 64%);}
   .fallback{position:fixed;inset:0;display:none;align-items:center;justify-content:center;color:var(--mut);z-index:0;}
-  .top{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:22px 40px;}
+  /* nav */
+  .top{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:20px 40px;transition:background .3s,backdrop-filter .3s;}
+  .top.solid{background:rgba(7,9,10,.7);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  body.light .top.solid{background:rgba(238,243,240,.8);}
   .brand{font-weight:800;letter-spacing:1.5px;font-size:19px;}
   .brand .hex{color:var(--neon);}
   .nav{display:flex;gap:26px;font-size:13.5px;color:var(--mut);}
   .nav span:hover{color:var(--ink);}
   .toggle{font-size:12.5px;color:var(--mut);border:1px solid var(--line);border-radius:20px;padding:7px 14px;display:flex;align-items:center;gap:8px;}
   .toggle .dot{width:8px;height:8px;border-radius:50%;background:var(--neon);}
+  /* hero */
   .hero{position:relative;z-index:3;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 40px;max-width:720px;pointer-events:none;}
   .hero *{pointer-events:auto;}
   .eyebrow{color:var(--neon);font-size:13px;font-weight:700;letter-spacing:4px;margin-bottom:18px;opacity:0;}
   h1{font-size:clamp(38px,6vw,74px);line-height:1.02;font-weight:800;letter-spacing:-1.5px;margin:0 0 22px;}
   h1 .ln{display:block;opacity:0;transform:translateY(26px);}
-  h1 .accent{color:var(--neon);}
+  .accent{color:var(--neon);}
   .sub{font-size:clamp(15px,1.6vw,19px);color:var(--mut);max-width:500px;margin:0 0 30px;opacity:0;}
   .cta{display:flex;gap:16px;flex-wrap:wrap;opacity:0;}
   .btn{background:var(--neon);color:#07090A;font-weight:800;font-size:15px;padding:14px 26px;border-radius:30px;display:inline-block;}
@@ -40,29 +44,82 @@
   .scrollcue{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:4;color:var(--mut);font-size:11px;letter-spacing:3px;text-align:center;opacity:0;}
   .scrollcue .arr{display:block;margin:8px auto 0;width:10px;height:10px;border-right:2px solid var(--neon);border-bottom:2px solid var(--neon);transform:rotate(45deg);animation:bob 1.6s infinite;}
   @keyframes bob{0%,100%{transform:rotate(45deg) translate(0,0);}50%{transform:rotate(45deg) translate(4px,4px);}}
-  .region{position:fixed;left:40px;bottom:40px;z-index:6;background:rgba(11,14,13,.86);border:1px solid var(--neon);border-radius:12px;padding:16px 20px;max-width:280px;opacity:0;transform:translateY(12px);transition:.35s;backdrop-filter:blur(8px);}
-  body.light .region{background:rgba(246,249,247,.92);}
-  .region.show{opacity:1;transform:none;}
+  /* generic section */
+  .section{position:relative;z-index:3;background:var(--bg);padding:120px 40px;}
+  .section.alt{background:var(--bg2);}
+  .inner{max-width:1120px;margin:0 auto;}
+  .s-eye{color:var(--neon);letter-spacing:3px;font-size:13px;font-weight:700;margin-bottom:14px;}
+  .s-h2{font-size:clamp(28px,4.2vw,50px);font-weight:800;letter-spacing:-1px;margin:0 0 18px;max-width:820px;line-height:1.07;}
+  .s-p{font-size:clamp(15px,1.5vw,18px);color:var(--mut);max-width:680px;line-height:1.65;}
+  .reveal{opacity:0;}
+  /* stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:46px;}
+  .tile{background:var(--bg3);padding:30px 26px;}
+  .tile .n{font-size:clamp(30px,4vw,44px);font-weight:800;color:var(--neon);letter-spacing:-1px;}
+  .tile .l{color:var(--mut);font-size:14px;margin-top:6px;}
+  /* three-sided model */
+  .hub{text-align:center;margin:50px auto 10px;}
+  .hub .pillc{display:inline-block;background:var(--neon);color:#07090A;font-weight:800;padding:12px 28px;border-radius:30px;font-size:16px;}
+  .conns{display:flex;justify-content:center;gap:60px;color:var(--line);font-size:30px;margin:8px 0;}
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px;}
+  .card{background:var(--bg3);border:1px solid var(--line);border-radius:16px;padding:28px 24px;transition:.3s;}
+  .card:hover{border-color:var(--neon);transform:translateY(-4px);}
+  .card .ic{width:42px;height:42px;border-radius:10px;background:rgba(182,255,60,.12);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;}
+  .card h3{margin:0 0 8px;font-size:19px;}
+  .card p{margin:0;color:var(--mut);font-size:14px;line-height:1.55;}
+  /* flow */
+  .flow{display:flex;align-items:stretch;gap:14px;margin-top:46px;flex-wrap:wrap;}
+  .fstep{flex:1;min-width:160px;background:var(--bg3);border:1px solid var(--line);border-radius:14px;padding:22px;position:relative;}
+  .fstep .k{color:var(--neon);font-weight:800;font-size:13px;letter-spacing:1px;}
+  .fstep b{display:block;margin:8px 0 6px;font-size:17px;}
+  .fstep span{color:var(--mut);font-size:13.5px;line-height:1.5;}
+  .fstep.center{background:linear-gradient(135deg,#0d2b24,#0b1a16);border-color:var(--teal);}
+  /* products grid */
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px;}
+  .pcard{background:var(--bg3);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:14px;padding:24px;transition:.3s;}
+  .pcard:hover{transform:translateY(-4px);border-left-color:var(--neon);}
+  .pcard h3{margin:0 0 8px;font-size:18px;}
+  .pcard p{margin:0;color:var(--mut);font-size:14px;line-height:1.55;}
+  /* doors */
+  .doors{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px;}
+  .door{background:var(--bg3);border:1px solid var(--line);border-radius:16px;padding:32px 26px;transition:.3s;}
+  .door:hover{border-color:var(--neon);background:var(--bg2);transform:translateY(-4px);}
+  .door .ar{color:var(--neon);font-size:22px;margin-top:18px;}
+  .door h3{margin:0 0 8px;font-size:21px;}
+  .door p{margin:0;color:var(--mut);font-size:14.5px;}
+  /* logo wall */
+  .grid6{max-width:1080px;margin:40px auto 0;display:grid;grid-template-columns:repeat(6,1fr);gap:16px;}
+  .logo{aspect-ratio:5/3;border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:11px;letter-spacing:1px;filter:grayscale(1);opacity:.55;transition:.3s;}
+  .logo:hover{filter:none;opacity:1;border-color:var(--neon);transform:translateY(-3px);}
+  .proofline{display:flex;gap:22px;flex-wrap:wrap;justify-content:center;margin-top:40px;color:var(--mut);font-size:13.5px;}
+  .proofline b{color:var(--ink);}
+  /* cta band */
+  .ctaband{position:relative;z-index:3;background:linear-gradient(120deg,var(--teal),#0a4a3e);padding:90px 40px;text-align:center;}
+  .ctaband h2{font-size:clamp(28px,4.5vw,52px);font-weight:800;letter-spacing:-1px;margin:0 0 26px;color:#fff;}
+  .ctaband .btn{background:var(--neon);}
+  .foot{position:relative;z-index:3;background:var(--bg2);color:var(--mut);font-size:12.5px;text-align:center;padding:30px;border-top:1px solid var(--line);}
+  /* region panel */
+  .region{position:fixed;left:40px;bottom:40px;z-index:15;background:rgba(11,14,13,.88);border:1px solid var(--neon);border-radius:12px;padding:16px 20px;max-width:280px;opacity:0;transform:translateY(12px);transition:.35s;backdrop-filter:blur(8px);pointer-events:none;}
+  .region.show{opacity:1;transform:none;pointer-events:auto;}
   .region .rk{color:var(--neon);font-size:12px;font-weight:800;letter-spacing:2px;}
   .region .rt{font-size:16px;font-weight:700;margin:6px 0 4px;}
   .region .rd{font-size:13px;color:var(--mut);}
   .region .rx{position:absolute;top:10px;right:14px;color:var(--mut);cursor:none;}
-  .wall{position:relative;z-index:3;background:var(--bg2);border-top:1px solid var(--line);padding:90px 40px 100px;text-align:center;}
-  .wall h2{font-size:clamp(22px,3vw,34px);font-weight:800;letter-spacing:-.5px;margin:0 0 8px;}
-  .wall p{color:var(--mut);margin:0 0 44px;font-size:15px;}
-  .grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);gap:18px;}
-  .logo{aspect-ratio:5/3;border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:11px;letter-spacing:1px;filter:grayscale(1);opacity:.6;transition:.3s;background:rgba(255,255,255,.02);}
-  .logo:hover{filter:none;opacity:1;border-color:var(--neon);transform:translateY(-3px);}
-  .uni-row{margin-top:28px;color:var(--mut);font-size:12.5px;letter-spacing:1px;}
-  .foot{position:relative;z-index:3;background:var(--bg2);color:var(--mut);font-size:12.5px;text-align:center;padding:26px;border-top:1px solid var(--line);}
+  /* cursor */
   .cur{position:fixed;top:0;left:0;width:30px;height:30px;border:1.5px solid var(--neon);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:9999;transition:width .2s,height .2s,background .2s;mix-blend-mode:difference;}
   .cur.big{width:54px;height:54px;background:rgba(182,255,60,.12);}
   .curdot{position:fixed;top:0;left:0;width:5px;height:5px;background:var(--neon);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:9999;}
   @media(hover:none){.cur,.curdot{display:none;} body{cursor:auto;}}
-  @media(min-width:721px){ #globeViz{transform:translate(21%, 7%);} }
-  @media(max-width:720px){.nav{display:none;}.grid{grid-template-columns:repeat(3,1fr);}.hero{padding:0 24px;}#globeViz{transform:translateY(20%);opacity:.55;}#scrim{background:linear-gradient(180deg,var(--bg) 30%,transparent 70%);}}
+  @media(min-width:721px){ #globeViz{transform:translate(21%, 6%);} }
+  @media(max-width:720px){
+    .nav{display:none;} .section{padding:80px 22px;} .hero{padding:0 22px;}
+    .tiles,.cards3,.pgrid,.doors{grid-template-columns:1fr;} .grid6{grid-template-columns:repeat(3,1fr);}
+    #globeViz{transform:translateY(16%);opacity:.5;} #scrim{background:linear-gradient(180deg,var(--bg) 34%,transparent 72%);}
+  }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/globe.gl"></script>
 </head>
 <body>
@@ -70,12 +127,13 @@
 <div id="scrim"></div>
 <div class="fallback" id="fallback">Could not start WebGL. The Pyroltech globe needs a modern browser.</div>
 
-<header class="top">
+<header class="top" id="topbar">
   <div class="brand">PYR<span class="hex">&#11042;</span>LTECH</div>
   <nav class="nav"><span>Solutions</span><span>Technology</span><span>Products</span><span>Industries</span><span>Global</span><span>Contact</span></nav>
   <div class="toggle magnetic" id="themeToggle"><span class="dot"></span><span id="themeLabel">Dark</span></div>
 </header>
 
+<!-- HERO -->
 <main class="hero">
   <div class="eyebrow" id="eyebrow">CLEANTECH FOR CLEAN WORLD</div>
   <h1>
@@ -89,30 +147,139 @@
     <a class="btn ghost magnetic">What we do</a>
   </div>
 </main>
-
 <div class="scrollcue" id="scrollcue">SCROLL TO BEGIN<span class="arr"></span></div>
 
-<div class="region" id="regionPanel">
-  <span class="rx" id="regionClose">&times;</span>
-  <div class="rk" id="rk">REGION</div>
-  <div class="rt" id="rt"></div>
-  <div class="rd" id="rd"></div>
-</div>
+<!-- THE PROBLEM -->
+<section class="section alt">
+  <div class="inner">
+    <div class="s-eye reveal">THE PROBLEM</div>
+    <h2 class="s-h2 reveal">Every year the world buries billions of tonnes of value.</h2>
+    <p class="s-p reveal">Forests, farms, cities and industry generate mountains of residue. Most of it is hauled away, burned or landfilled, and the carbon, energy and nutrients locked inside are lost. The cost of removing it keeps climbing, and so do the emissions.</p>
+    <div class="tiles">
+      <div class="tile reveal"><div class="n"><span class="count" data-to="2" data-suffix="B+">0</span></div><div class="l">tonnes of waste generated each year</div></div>
+      <div class="tile reveal"><div class="n"><span class="count" data-to="33" data-suffix="%">0</span></div><div class="l">not managed in a safe, clean way</div></div>
+      <div class="tile reveal"><div class="n"><span class="count" data-to="100" data-suffix="%">0</span></div><div class="l">of it still holds recoverable value</div></div>
+    </div>
+  </div>
+</section>
 
-<section class="wall">
-  <h2>Trusted across six regions and 20+ years</h2>
-  <p>Suppliers, partners, technology providers and clients worldwide.</p>
-  <div class="grid" id="logoGrid"></div>
-  <div class="uni-row">Research partners: UBC &middot; UNB &middot; and leading universities</div>
+<!-- THE SHIFT -->
+<section class="section">
+  <div class="inner">
+    <div class="s-eye reveal">THE SHIFT</div>
+    <h2 class="s-h2 reveal">What if waste was not a cost, but a <span class="accent">resource</span>?</h2>
+    <p class="s-p reveal">Pyroltech's thermochemical platform converts almost any organic or carbon-rich waste into clean carbon, fuels, energy and carbon-removal credits. The same tonne you used to pay to remove becomes a product you can sell. That is the flip at the heart of everything we do.</p>
+  </div>
+</section>
+
+<!-- THE MODEL -->
+<section class="section alt">
+  <div class="inner">
+    <div class="s-eye reveal" style="text-align:center">THE MODEL</div>
+    <h2 class="s-h2 reveal" style="margin:0 auto 8px;text-align:center">One technology, three worlds connected.</h2>
+    <p class="s-p reveal" style="margin:0 auto;text-align:center">Pyroltech sits at the centre, turning a waste problem on one side into clean value on the other, with research keeping it proven and fundable.</p>
+    <div class="hub reveal"><span class="pillc">PYROLTECH, the hub</span></div>
+    <div class="cards3">
+      <div class="card reveal"><div class="ic">&#128300;</div><h3>Research partners</h3><p>Universities and labs that validate performance, optimise per feedstock, and unlock grants and credibility.</p></div>
+      <div class="card reveal"><div class="ic">&#9851;</div><h3>Waste producers</h3><p>Forestry, farms, food, tires, sludge and industry whose residue becomes our feedstock instead of a cost.</p></div>
+      <div class="card reveal"><div class="ic">&#127981;</div><h3>Byproduct users</h3><p>Steel, cement, fuels, agriculture and energy buyers who need the clean carbon, fuels and credits we produce.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="inner">
+    <div class="s-eye reveal">HOW IT WORKS</div>
+    <h2 class="s-h2 reveal">Waste in. Value out. On-site or at scale.</h2>
+    <p class="s-p reveal">Our patented units run on their own recovered gas after start-up, from a portable skid you place on-site to full field-size plants. Pyrolysis, HTC, HTL, gasification and upgrading do the rest.</p>
+    <div class="flow">
+      <div class="fstep reveal"><div class="k">01 FEEDSTOCK</div><b>Waste in</b><span>Forestry residue, ag waste, tires, sludge, plastics and more.</span></div>
+      <div class="fstep center reveal"><div class="k">02 PYROLTECH</div><b>Convert</b><span>Pyrolysis, HTC, HTL, gasification and upgrading, portable or field-size.</span></div>
+      <div class="fstep reveal"><div class="k">03 OUTPUTS</div><b>Value out</b><span>Clean carbon, fuels, gases, energy and carbon-removal credits.</span></div>
+      <div class="fstep reveal"><div class="k">04 IMPACT</div><b>Revenue + cuts CO2</b><span>A new revenue line and a lower-carbon footprint, together.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE MAKE -->
+<section class="section alt">
+  <div class="inner">
+    <div class="s-eye reveal">WHAT WE MAKE</div>
+    <h2 class="s-h2 reveal">A whole slate of clean products from what others throw away.</h2>
+    <div class="pgrid">
+      <div class="pcard reveal"><h3>Biocarbon</h3><p>Metallurgical coke substitute, soil amendment, activated carbon, recovered carbon black and more.</p></div>
+      <div class="pcard reveal"><h3>Renewable fuels</h3><p>Bio-oil and biocrude upgraded to renewable diesel, sustainable aviation fuel and marine fuel.</p></div>
+      <div class="pcard reveal"><h3>Clean gases</h3><p>Syngas, green hydrogen and renewable natural gas for power, heat and industry.</p></div>
+      <div class="pcard reveal"><h3>Wood vinegar &amp; chemicals</h3><p>Organic pesticide, biostimulant, and bio-based platform chemicals.</p></div>
+      <div class="pcard reveal"><h3>Heat &amp; power</h3><p>On-site energy and combined heat and power from recovered gas.</p></div>
+      <div class="pcard reveal"><h3>Carbon-removal credits</h3><p>Durable, credit-eligible carbon removal stacked on top of every product.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BY THE NUMBERS -->
+<section class="section">
+  <div class="inner">
+    <div class="s-eye reveal">BY THE NUMBERS</div>
+    <h2 class="s-h2 reveal">Two decades of turning waste into worth.</h2>
+    <div class="tiles" style="grid-template-columns:repeat(4,1fr)">
+      <div class="tile reveal"><div class="n"><span class="count" data-to="20" data-suffix="+">0</span></div><div class="l">years of expertise</div></div>
+      <div class="tile reveal"><div class="n"><span class="count" data-to="6" data-suffix="">0</span></div><div class="l">global regions</div></div>
+      <div class="tile reveal"><div class="n"><span class="count" data-to="30" data-suffix="+">0</span></div><div class="l">clean products</div></div>
+      <div class="tile reveal"><div class="n"><span class="count" data-to="2.5" data-dec="1" data-suffix="t">0</span></div><div class="l">CO2 removed per tonne</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="section alt">
+  <div class="inner" style="text-align:center">
+    <div class="s-eye reveal">PROOF</div>
+    <h2 class="s-h2 reveal" style="margin:0 auto 8px">Trusted across six regions and 20+ years.</h2>
+    <p class="s-p reveal" style="margin:0 auto">Suppliers, partners, technology providers and clients worldwide.</p>
+    <div class="grid6 reveal" id="logoGrid"></div>
+    <div class="proofline reveal">
+      <span><b>Teck Trail</b> $500,558 biocarbon trial</span>
+      <span><b>NRCan</b> Bio-Coke program</span>
+      <span><b>UBC &middot; UNB</b> research partners</span>
+    </div>
+  </div>
+</section>
+
+<!-- FIND YOUR PATH -->
+<section class="section">
+  <div class="inner">
+    <div class="s-eye reveal">WHERE DO YOU FIT</div>
+    <h2 class="s-h2 reveal">Three ways to work with us.</h2>
+    <div class="doors">
+      <div class="door reveal"><h3>I create waste</h3><p>Turn your residue stream into feedstock and a new revenue line.</p><div class="ar">&rarr;</div></div>
+      <div class="door reveal"><h3>I need a byproduct</h3><p>Source clean carbon, fuels, gases or carbon-removal credits.</p><div class="ar">&rarr;</div></div>
+      <div class="door reveal"><h3>I research &amp; develop</h3><p>Partner on validation, optimisation and grant-funded pilots.</p><div class="ar">&rarr;</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctaband">
+  <h2 class="reveal">Let's turn your waste into value.</h2>
+  <a class="btn magnetic">Book a discovery call</a>
 </section>
 <div class="foot">Pyroltech &middot; CleanTech for Clean World &middot; private preview</div>
 
+<!-- region panel + cursor -->
+<div class="region" id="regionPanel">
+  <span class="rx" id="regionClose">&times;</span>
+  <div class="rk" id="rk">REGION</div><div class="rt" id="rt"></div><div class="rd" id="rd"></div>
+</div>
 <div class="cur" id="cur"></div>
 <div class="curdot" id="curdot"></div>
 
 <script>
 (function(){
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- GLOBE ---------- */
   var regions = [
     {k:'IRAN', t:'Iran', d:'Two decades of pyrolysis know-how.', lat:35.7, lng:51.4},
     {k:'TURKEY', t:'Turkey, Afyon', d:'Plant commissioned 2026.', lat:38.7, lng:30.5},
@@ -123,105 +290,107 @@
     {k:'CANADA', t:'Canada', d:'Current deployments and research.', lat:49.3, lng:-123.1}
   ];
   var arcs = [];
-  for (var i=0; i<regions.length-1; i++){
-    arcs.push({ sl:regions[i].lat, sg:regions[i].lng, el:regions[i+1].lat, eg:regions[i+1].lng });
-  }
+  for (var i=0;i<regions.length-1;i++) arcs.push({sl:regions[i].lat,sg:regions[i].lng,el:regions[i+1].lat,eg:regions[i+1].lng});
 
-  if (!window.Globe){ document.getElementById('fallback').style.display='flex'; return; }
-  var HEX = '#37E07F', PIN = '#B6FF3C', ATM = '#16d39a';
+  var HEX='#4DF08A', PIN='#B6FF3C', ATM='#16d39a', OCEAN='#07231d';
+  if (window.Globe){
+    var world = new Globe(document.getElementById('globeViz'))
+      .backgroundColor('rgba(0,0,0,0)')
+      .showGlobe(true).showAtmosphere(true).atmosphereColor(ATM).atmosphereAltitude(0.18)
+      .hexPolygonResolution(4).hexPolygonMargin(0.18).hexPolygonUseDots(false)
+      .hexPolygonColor(function(){return HEX;}).hexPolygonAltitude(0.02)
+      .pointsData(regions).pointLat('lat').pointLng('lng').pointColor(function(){return PIN;})
+      .pointAltitude(0.05).pointRadius(0.6).onPointClick(function(p){showRegion(p);})
+      .arcsData(arcs).arcStartLat('sl').arcStartLng('sg').arcEndLat('el').arcEndLng('eg')
+      .arcColor(function(){return [PIN,ATM];}).arcStroke(0.45).arcAltitudeAutoScale(0.45)
+      .arcDashLength(0.5).arcDashGap(0.25).arcDashAnimateTime(reduced?0:2600);
+    try{ var gm=world.globeMaterial(); gm.color.set(OCEAN); gm.emissive.set('#05140f'); gm.emissiveIntensity=0.35; gm.shininess=3; }catch(e){}
+    function loadGeo(url,next){ fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();})
+      .then(function(g){ world.hexPolygonsData(g.features); }).catch(function(){ if(next) next(); }); }
+    loadGeo('https://cdn.jsdelivr.net/npm/three-globe/example/datasets/ne_110m_admin_0_countries.geojson',
+      function(){ loadGeo('https://unpkg.com/three-globe/example/datasets/ne_110m_admin_0_countries.geojson'); });
+    var c=world.controls(); c.enableZoom=false; c.enableDamping=true; c.dampingFactor=0.08;
+    c.autoRotate=!reduced; c.autoRotateSpeed=0.5;
+    world.pointOfView({lat:22,lng:30,altitude:2.3});
+    var fit=function(){ world.width(window.innerWidth).height(window.innerHeight); }; fit();
+    window.addEventListener('resize',fit);
+  } else { document.getElementById('fallback').style.display='flex'; }
 
-  var world = new Globe(document.getElementById('globeViz'))
-    .backgroundColor('rgba(0,0,0,0)')
-    .showGlobe(true)
-    .showAtmosphere(true)
-    .atmosphereColor(ATM)
-    .atmosphereAltitude(0.16)
-    .hexPolygonResolution(3)
-    .hexPolygonMargin(0.28)
-    .hexPolygonUseDots(false)
-    .hexPolygonColor(function(){ return HEX; })
-    .hexPolygonAltitude(0.012)
-    .pointsData(regions)
-    .pointLat('lat').pointLng('lng')
-    .pointColor(function(){ return PIN; })
-    .pointAltitude(0.045).pointRadius(0.55)
-    .onPointClick(function(p){ showRegion(p); })
-    .arcsData(arcs)
-    .arcStartLat('sl').arcStartLng('sg').arcEndLat('el').arcEndLng('eg')
-    .arcColor(function(){ return [PIN, ATM]; })
-    .arcStroke(0.45).arcAltitudeAutoScale(0.45)
-    .arcDashLength(0.5).arcDashGap(0.25).arcDashAnimateTime(reduced?0:2600);
+  /* region panel */
+  var panel=document.getElementById('regionPanel');
+  function showRegion(rg){ document.getElementById('rk').textContent=rg.k; document.getElementById('rt').textContent=rg.t; document.getElementById('rd').textContent=rg.d; panel.classList.add('show'); }
+  document.getElementById('regionClose').onclick=function(){ panel.classList.remove('show'); };
 
-  // dark planet body
-  try {
-    var gm = world.globeMaterial();
-    gm.color.set('#0a1310'); gm.emissive.set('#04140d'); gm.emissiveIntensity = 0.25; gm.shininess = 2;
-  } catch(e){}
-
-  // continents from real country GeoJSON
-  fetch('https://unpkg.com/three-globe/example/datasets/ne_110m_admin_0_countries.geojson')
-    .then(function(r){ return r.json(); })
-    .then(function(geo){ world.hexPolygonsData(geo.features); })
-    .catch(function(){ /* leave globe without hexes if offline */ });
-
-  // controls: drag + slow auto-rotate, no zoom
-  var c = world.controls();
-  c.enableZoom = false; c.enableDamping = true; c.dampingFactor = 0.08;
-  c.autoRotate = !reduced; c.autoRotateSpeed = 0.55;
-  world.pointOfView({ lat: 22, lng: 30, altitude: 2.3 });
-
-  function fit(){ world.width(window.innerWidth).height(window.innerHeight); }
-  fit(); window.addEventListener('resize', fit);
-
-  // region panel
-  var panel = document.getElementById('regionPanel');
-  function showRegion(rg){
-    document.getElementById('rk').textContent = rg.k;
-    document.getElementById('rt').textContent = rg.t;
-    document.getElementById('rd').textContent = rg.d;
-    panel.classList.add('show');
-  }
-  document.getElementById('regionClose').onclick = function(){ panel.classList.remove('show'); };
-
-  // theme toggle (updates globe colors too)
-  document.getElementById('themeToggle').addEventListener('click', function(){
-    document.body.classList.toggle('light');
-    var light = document.body.classList.contains('light');
-    document.getElementById('themeLabel').textContent = light ? 'Light' : 'Dark';
-    HEX = light ? '#0E9E63' : '#37E07F';
-    ATM = light ? '#2bb892' : '#16d39a';
-    world.hexPolygonColor(function(){ return HEX; }).atmosphereColor(ATM);
-    try { world.globeMaterial().color.set(light ? '#dfeee7' : '#0a1310'); } catch(e){}
+  /* theme toggle */
+  document.getElementById('themeToggle').addEventListener('click',function(){
+    document.body.classList.toggle('light'); var light=document.body.classList.contains('light');
+    document.getElementById('themeLabel').textContent=light?'Light':'Dark';
+    if(window.Globe&&world){ HEX=light?'#0E9E63':'#4DF08A'; ATM=light?'#2bb892':'#16d39a';
+      world.hexPolygonColor(function(){return HEX;}).atmosphereColor(ATM);
+      try{ world.globeMaterial().color.set(light?'#cfe6dd':OCEAN); }catch(e){} }
   });
 
-  // hero text intro
-  if (window.gsap && !reduced){
+  /* logos */
+  var grid=document.getElementById('logoGrid');
+  for(var j=0;j<12;j++){ var dv=document.createElement('div'); dv.className='logo'; dv.textContent='LOGO'; grid.appendChild(dv); }
+
+  /* ---------- SMOOTH SCROLL + ANIMATIONS ---------- */
+  var hasGsap=window.gsap&&window.ScrollTrigger;
+  if(hasGsap) gsap.registerPlugin(ScrollTrigger);
+
+  if(window.Lenis && hasGsap && !reduced){
+    var lenis=new Lenis({lerp:0.1,smoothWheel:true});
+    lenis.on('scroll',ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t*1000); }); gsap.ticker.lagSmoothing(0);
+  }
+
+  /* hero intro */
+  if(hasGsap && !reduced){
     gsap.to('#eyebrow',{opacity:1,duration:.8,delay:.2});
     gsap.to('h1 .ln',{opacity:1,y:0,duration:.9,stagger:.13,delay:.35,ease:'power3.out'});
     gsap.to('#sub',{opacity:1,duration:.8,delay:1.0});
     gsap.to('#cta',{opacity:1,duration:.8,delay:1.2});
     gsap.to('#scrollcue',{opacity:1,duration:.8,delay:1.7});
   } else {
-    ['#eyebrow','#sub','#cta','#scrollcue'].forEach(function(s){ var e=document.querySelector(s); if(e) e.style.opacity=1; });
-    document.querySelectorAll('h1 .ln').forEach(function(e){ e.style.opacity=1; e.style.transform='none'; });
+    ['#eyebrow','#sub','#cta','#scrollcue'].forEach(function(s){var e=document.querySelector(s);if(e)e.style.opacity=1;});
+    document.querySelectorAll('h1 .ln,.reveal').forEach(function(e){e.style.opacity=1;e.style.transform='none';});
   }
 
-  // custom cursor
-  var cur = document.getElementById('cur'), dot = document.getElementById('curdot');
-  if (window.gsap && matchMedia('(hover:hover)').matches){
-    window.addEventListener('mousemove', function(e){
-      gsap.to(cur,{x:e.clientX,y:e.clientY,duration:.5,ease:'power3.out'});
-      gsap.set(dot,{x:e.clientX,y:e.clientY});
+  /* scroll reveals */
+  if(hasGsap && !reduced){
+    gsap.utils.toArray('.reveal').forEach(function(el){
+      gsap.fromTo(el,{opacity:0,y:42},{opacity:1,y:0,duration:.9,ease:'power3.out',
+        scrollTrigger:{trigger:el,start:'top 86%'}});
     });
-    document.querySelectorAll('.magnetic,a,.nav span,.logo').forEach(function(el){
-      el.addEventListener('mouseenter', function(){ cur.classList.add('big'); });
-      el.addEventListener('mouseleave', function(){ cur.classList.remove('big'); });
+    /* count-ups */
+    gsap.utils.toArray('.count').forEach(function(el){
+      var end=parseFloat(el.dataset.to), dec=parseInt(el.dataset.dec||'0',10), suf=el.dataset.suffix||'';
+      var o={v:0};
+      ScrollTrigger.create({trigger:el,start:'top 88%',once:true,onEnter:function(){
+        gsap.to(o,{v:end,duration:1.6,ease:'power1.out',onUpdate:function(){ el.textContent=o.v.toFixed(dec)+suf; }});
+      }});
     });
+  } else {
+    document.querySelectorAll('.count').forEach(function(el){ el.textContent=el.dataset.to+(el.dataset.suffix||''); });
   }
 
-  // logo placeholders (swap with Fred's list)
-  var grid = document.getElementById('logoGrid');
-  for (var j=0; j<12; j++){ var dv=document.createElement('div'); dv.className='logo'; dv.textContent='LOGO'; grid.appendChild(dv); }
+  /* scroll cue fade + nav solid (native scroll, works with Lenis too) */
+  var cue=document.getElementById('scrollcue'), bar=document.getElementById('topbar');
+  window.addEventListener('scroll',function(){
+    var y=window.scrollY||document.documentElement.scrollTop;
+    cue.style.opacity=Math.max(0,1-y/220);
+    if(y>60) bar.classList.add('solid'); else bar.classList.remove('solid');
+  },{passive:true});
+
+  /* cursor */
+  var cur=document.getElementById('cur'),dot=document.getElementById('curdot');
+  if(window.gsap && matchMedia('(hover:hover)').matches){
+    window.addEventListener('mousemove',function(e){
+      gsap.to(cur,{x:e.clientX,y:e.clientY,duration:.5,ease:'power3.out'}); gsap.set(dot,{x:e.clientX,y:e.clientY});
+    });
+    var hov=document.querySelectorAll('.magnetic,a,.nav span,.logo,.card,.pcard,.door,.tile');
+    hov.forEach(function(el){ el.addEventListener('mouseenter',function(){cur.classList.add('big');}); el.addEventListener('mouseleave',function(){cur.classList.remove('big');}); });
+  }
 })();
 </script>
 </body>
