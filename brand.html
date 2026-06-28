@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Pyroltech, Brand & Design Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F4EE; --surf:#FFFFFF; --surf2:#ECE9E0; --ink:#16201B; --mut:#566159; --line:#DCD7CB;
+    --green:#0E4D33; --green-mid:#1E7A52; --green-tint:#D8E6DC; --gold:#B8862F; --gold2:#9C6F22;
+    --hero-bg:#0B1A13; --hero-green:#3FB37C; --hero-gold:#E0B65C; --globe-lime:#A8E063;
+    --display:'Fraunces',Georgia,serif; --body:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.65;}
+  .wrap{max-width:1080px;margin:0 auto;padding:64px 36px 100px;}
+  .mono{font-family:var(--mono);}
+  .ey{font-family:var(--mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green-mid);}
+  h1{font-family:var(--display);font-weight:600;font-size:clamp(34px,5vw,58px);letter-spacing:-1px;margin:10px 0 6px;}
+  .lede{color:var(--mut);font-size:18px;max-width:640px;margin:0 0 10px;}
+  h2{font-family:var(--display);font-weight:600;font-size:28px;letter-spacing:-.5px;margin:64px 0 6px;}
+  .sub{color:var(--mut);font-size:14px;margin:0 0 22px;}
+  .hr{height:1px;background:var(--line);margin:14px 0 0;}
+  /* swatches */
+  .sw{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .chip{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surf);cursor:pointer;transition:transform .15s,box-shadow .15s;}
+  .chip:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(20,40,30,.12);}
+  .chip .col{height:96px;}
+  .chip .meta{padding:12px 14px;}
+  .chip .role{font-size:13px;font-weight:600;}
+  .chip .hex{font-family:var(--mono);font-size:12px;color:var(--mut);margin-top:3px;display:flex;justify-content:space-between;align-items:center;}
+  .chip .copied{color:var(--green-mid);font-weight:600;opacity:0;transition:opacity .2s;}
+  .chip.show .copied{opacity:1;}
+  /* type specimen */
+  .spec{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:30px 32px;}
+  .d1{font-family:var(--display);font-weight:600;font-size:56px;letter-spacing:-1px;line-height:1.04;margin:0;}
+  .d1 .g{color:var(--green);} .d1 .b{color:var(--gold);}
+  .d2{font-family:var(--display);font-weight:600;font-size:34px;letter-spacing:-.5px;margin:18px 0 0;}
+  .bd{font-size:16px;color:var(--mut);max-width:620px;margin:14px 0 0;}
+  .lbl{font-family:var(--mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green-mid);margin-top:18px;}
+  .tnote{font-family:var(--mono);font-size:12px;color:var(--mut);margin-top:10px;}
+  /* components */
+  .row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:8px;}
+  .btn{font-weight:600;font-size:15px;padding:13px 26px;border-radius:10px;border:0;cursor:pointer;}
+  .btn.green{background:var(--green);color:#fff;} .btn.brass{background:var(--gold);color:#1a1205;} .btn.ghost{background:transparent;border:1px solid var(--ink);color:var(--ink);}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px;}
+  .card{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:24px;}
+  .card h3{font-family:var(--display);font-weight:600;margin:0 0 6px;font-size:19px;}
+  .card p{margin:0;color:var(--mut);font-size:14px;}
+  .num{font-family:var(--mono);font-size:34px;color:var(--gold);font-weight:600;}
+  /* do/avoid */
+  .da{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .box{border:1px solid var(--line);border-radius:14px;padding:22px 24px;background:var(--surf);}
+  .box h4{margin:0 0 10px;font-family:var(--mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;}
+  .box.do h4{color:var(--green-mid);} .box.no h4{color:#b4452f;}
+  .box ul{margin:0;padding-left:18px;} .box li{font-size:14px;color:var(--mut);margin-bottom:8px;}
+  /* imagery */
+  .imgs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px;}
+  .imgs figure{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surf);}
+  .imgs img{width:100%;height:150px;object-fit:cover;display:block;}
+  .imgs figcaption{font-family:var(--mono);font-size:11.5px;color:var(--mut);padding:10px 12px;}
+  .links{font-family:var(--mono);font-size:13px;color:var(--mut);line-height:2;}
+  .links a{color:var(--green-mid);}
+  @media(max-width:760px){.sw,.cards,.imgs{grid-template-columns:1fr 1fr;}.da{grid-template-columns:1fr;}.d1{font-size:38px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="ey">Pyroltech / Brand &amp; Design Reference</div>
+  <h1>The reference for every Pyroltech surface.</h1>
+  <p class="lede">One source of truth for the website, pitch decks, proposals and documents. Click any swatch to copy its hex. Built from a study of 23 cleantech and carbon-removal leaders: warm, established, innovative.</p>
+
+  <h2>Color</h2>
+  <p class="sub">Warm light is the default. Deep forest green is the anchor. Antique brass is the value accent, used sparingly.</p>
+  <div class="sw" id="sw"></div>
+
+  <h2>Typography</h2>
+  <p class="sub">Fraunces (serif) for headlines, Inter for body, IBM Plex Mono for labels, specs and live numbers.</p>
+  <div class="spec">
+    <p class="d1">The world makes waste.<br><span class="g">We make</span> <span class="b">it valuable.</span></p>
+    <div class="lbl">Fraunces / display 56, weight 600, tracking -1</div>
+    <p class="d2">Two decades of turning waste into worth.</p>
+    <div class="lbl">Fraunces / heading 34, weight 600</div>
+    <p class="bd">Pyroltech's thermochemical platform converts almost any organic or carbon-rich waste into clean carbon, fuels, energy and carbon-removal credits.</p>
+    <div class="tnote">Inter / body 16, color sage #566159 &middot; line-height 1.65</div>
+    <div class="tnote" style="color:var(--green-mid)">CLEANTECH FOR CLEAN WORLD &middot; IBM Plex Mono / eyebrow 12, +2 tracking, uppercase</div>
+  </div>
+
+  <h2>Components</h2>
+  <p class="sub">Primary action = forest green. Value moment (final CTA, key numbers) = brass. Radius 10-16px. Soft shadow, no neon glow.</p>
+  <div class="row">
+    <button class="btn green">Explore the story</button>
+    <button class="btn brass">Book a discovery call</button>
+    <button class="btn ghost">What we do</button>
+  </div>
+  <div class="cards">
+    <div class="card"><h3>Card / tile</h3><p>White surface on warm canvas, hairline border, soft shadow on hover.</p></div>
+    <div class="card"><div class="num">2.5t</div><p>Key number in brass mono, tabular figures.</p></div>
+    <div class="card"><h3 style="color:var(--green)">Forest accent</h3><p>Headlines and icons use deep forest; links use emerald #1E7A52.</p></div>
+  </div>
+
+  <h2>Imagery</h2>
+  <p class="sub">Lead with real photography of real plants and product. Avoid stocky or low-res shots.</p>
+  <div class="imgs">
+    <figure><img src="assets/stationary.jpg" alt="plant"><figcaption>Real plant, hero / proof</figcaption></figure>
+    <figure><img src="assets/portable.jpg" alt="unit"><figcaption>Portable unit, product</figcaption></figure>
+    <figure><img src="assets/pyrolysis.jpg" alt="reactor"><figcaption>Reactor render, technology</figcaption></figure>
+  </div>
+
+  <h2>Do &amp; avoid</h2>
+  <div class="da">
+    <div class="box do"><h4>Do</h4><ul>
+      <li>Warm light canvas, deep forest green, one disciplined brass accent.</li>
+      <li>Serif headlines, generous whitespace, real photos.</li>
+      <li>Brass only for value moments. Forest green for primary actions.</li>
+      <li>Keep 4.5:1+ contrast in both light and the forest-dark theme.</li>
+    </ul></div>
+    <div class="box no"><h4>Avoid</h4><ul>
+      <li>Near-black backgrounds or neon lime in the default UI.</li>
+      <li>More than one accent colour, or loud glows and gradients.</li>
+      <li>Clinical pure-white canvas (use warm #F6F4EE).</li>
+      <li>Emojis as icons; use SVG line icons.</li>
+    </ul></div>
+  </div>
+
+  <h2>Where this lives</h2>
+  <p class="links">
+    Live site &rarr; <a href="https://rezalari.github.io/pyroltech-website/">rezalari.github.io/pyroltech-website</a><br>
+    This styleguide &rarr; <a href="https://rezalari.github.io/pyroltech-website/brand.html">/brand.html</a><br>
+    Repo &rarr; <a href="https://github.com/rezalari/pyroltech-website">github.com/rezalari/pyroltech-website</a><br>
+    Written design system &rarr; design-system/pyroltech/MASTER.md<br>
+    Page template &rarr; templates/metallurgical-biocarbon.html<br>
+    Google Fonts &rarr; Fraunces + Inter + IBM Plex Mono
+  </p>
+</div>
+
+<script>
+var COLORS=[
+  ['Canvas','#F6F4EE'],['Card','#FFFFFF'],['Surface alt','#ECE9E0'],['Hairline','#DCD7CB'],
+  ['Ink (text)','#16201B'],['Sage (text 2)','#566159'],['Forest green','#0E4D33'],['Emerald','#1E7A52'],
+  ['Mint tint','#D8E6DC'],['Antique brass','#B8862F'],['Brass deep','#9C6F22'],['Globe lime','#A8E063'],
+  ['Forest dark (hero)','#0B1A13'],['Hero emerald','#3FB37C'],['Hero gold','#E0B65C'],['Forest surf','#12281D']
+];
+var sw=document.getElementById('sw');
+COLORS.forEach(function(c){
+  var d=document.createElement('div'); d.className='chip';
+  var dark = ['#0B1A13','#12281D','#16201B','#0E4D33','#1E7A52','#9C6F22'].indexOf(c[1])>=0;
+  d.innerHTML='<div class="col" style="background:'+c[1]+'"></div><div class="meta"><div class="role">'+c[0]+'</div><div class="hex"><span>'+c[1]+'</span><span class="copied">copied</span></div></div>';
+  d.onclick=function(){ navigator.clipboard&&navigator.clipboard.writeText(c[1]); d.classList.add('show'); setTimeout(function(){d.classList.remove('show');},1100); };
+  sw.appendChild(d);
+});
+</script>
+</body>
+</html>

@@ -14,14 +14,15 @@
 
 ## PROJECT BRAND OVERRIDE (authoritative, supersedes the generic palette below)
 
-The engine's generic query returned a slate + red palette. For a cleantech brand that is wrong, so the implemented Pyroltech brand uses the engine's **Sustainable Energy / Climate Tech** palette ("Nature green + solar gold"), which is on-message (gold = value):
+Mature rebrand (2026-06-27) from a study of 23 cleantech / carbon-removal / decarbonization leaders. The established look is warm-light + deep forest green + one restrained accent + real photography + serif headlines. Live styleguide: `brand.html`.
 
-- **Brand green (clean/nature):** `#10B981` / deep `#059669` / bright `#34D9A0`
-- **Value accent (CTAs, key numbers, "valuable"):** solar gold `#FBBF24` / `#F59E0B`
-- **Dark base:** `#060807` / surfaces `#0E1311` / `#131A16`; light mode base `#F3FAF6`
-- **Typography:** headings `Outfit`, body `Inter`
-- **Chapter color progression (scroll storytelling):** problem = ash/grey, shift+solution = green, products/numbers/climax CTA = gold (building intensity)
-- Pattern = Scroll-Triggered Storytelling + progress bar + mini-CTAs + climax CTA. Style = Bento Box Grid. Effects = rounded 18px, subtle shadow, hover scale 1.02, transitions 200ms.
+**Light (default):** canvas `#F6F4EE` (warm bone, not clinical white) | cards `#FFFFFF` | surface alt `#ECE9E0` | ink `#16201B` | sage text `#566159` | hairline `#DCD7CB`.
+**Brand green:** deep forest `#0E4D33` (anchor) | emerald `#1E7A52` (links/hover) | mint tint `#D8E6DC`.
+**Value accent (sparingly):** antique brass `#B8862F` / deep `#9C6F22`, used for the word "valuable/worth", key numbers, the climax CTA only.
+**Forest-dark (hero band + `body.dark` toggle):** base `#0B1A13` | surface `#12281D` | text `#EDF3EE` | hero emerald `#3FB37C` | hero gold `#E0B65C`.
+**Globe-only neon:** toned lime `#A8E063` (3D globe hexes / data-viz only, never in UI).
+**Typography:** headlines `Fraunces` (serif, 600), body `Inter`, labels/specs/live-numbers `IBM Plex Mono`.
+**Layout:** hybrid, forest-dark HERO (globe inside) then warm-light body; primary buttons forest green, climax CTA brass; radius 10-16px, soft shadow, NO neon glow. Pattern = scroll storytelling + progress bar; Style = Bento product grid.
 
 ---
 
