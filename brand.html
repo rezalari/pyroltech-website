@@ -7,13 +7,13 @@
 <title>Pyroltech, Brand & Design Reference</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Archivo+Expanded:wght@600;700;800&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#F6F4EE; --surf:#FFFFFF; --surf2:#ECE9E0; --ink:#16201B; --mut:#566159; --line:#DCD7CB;
     --green:#0E4D33; --green-mid:#1E7A52; --green-tint:#D8E6DC; --gold:#B8862F; --gold2:#9C6F22;
     --hero-bg:#0B1A13; --hero-green:#3FB37C; --hero-gold:#E0B65C; --globe-lime:#A8E063;
-    --display:'Fraunces',Georgia,serif; --body:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+    --display:'Archivo',system-ui,sans-serif; --display-xl:'Archivo Expanded','Archivo',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
   }
   *{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.65;}
   .wrap{max-width:1080px;margin:0 auto;padding:64px 36px 100px;}
@@ -36,7 +36,7 @@
   .chip.show .copied{opacity:1;}
   /* type specimen */
   .spec{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:30px 32px;}
-  .d1{font-family:var(--display);font-weight:600;font-size:56px;letter-spacing:-1px;line-height:1.04;margin:0;}
+  .d1{font-family:var(--display-xl);font-weight:700;font-size:56px;letter-spacing:-1.4px;line-height:1.02;margin:0;}
   .d1 .g{color:var(--green);} .d1 .b{color:var(--gold);}
   .d2{font-family:var(--display);font-weight:600;font-size:34px;letter-spacing:-.5px;margin:18px 0 0;}
   .bd{font-size:16px;color:var(--mut);max-width:620px;margin:14px 0 0;}
@@ -73,17 +73,31 @@
   <h1>The reference for every Pyroltech surface.</h1>
   <p class="lede">One source of truth for the website, pitch decks, proposals and documents. Click any swatch to copy its hex. Built from a study of 23 cleantech and carbon-removal leaders: warm, established, innovative.</p>
 
+  <h2>Logo</h2>
+  <p class="sub">Solid hexagon + rising "value" chevron + brass spark. Forest green on light, emerald on dark. The chevron is always the background colour (negative space); never recolour or stretch it.</p>
+  <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:8px">
+    <div style="display:flex;align-items:center;gap:12px;background:#FFF;border:1px solid #DCD7CB;border-radius:14px;padding:18px 22px">
+      <svg viewBox="0 0 40 40" style="height:38px;color:#0E4D33"><polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="currentColor"/><path d="M11 28 L20 15 L29 28" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="11" r="2.6" fill="#B8862F"/></svg>
+      <span style="font-family:var(--display-xl);font-weight:700;letter-spacing:1.5px;font-size:23px;color:#16201B">PYROLTECH</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;background:#0B1A13;border-radius:14px;padding:18px 22px">
+      <svg viewBox="0 0 40 40" style="height:38px;color:#3FB37C"><polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="currentColor"/><path d="M11 28 L20 15 L29 28" fill="none" stroke="#0B1A13" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="11" r="2.6" fill="#E0B65C"/></svg>
+      <span style="font-family:var(--display-xl);font-weight:700;letter-spacing:1.5px;font-size:23px;color:#EDF3EE">PYROLTECH</span>
+    </div>
+    <svg viewBox="0 0 40 40" style="height:34px;color:#0E4D33" title="mark / favicon"><polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="currentColor"/><path d="M11 28 L20 15 L29 28" fill="none" stroke="#F6F4EE" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="11" r="2.6" fill="#B8862F"/></svg>
+  </div>
+
   <h2>Color</h2>
   <p class="sub">Warm light is the default. Deep forest green is the anchor. Antique brass is the value accent, used sparingly.</p>
   <div class="sw" id="sw"></div>
 
   <h2>Typography</h2>
-  <p class="sub">Fraunces (serif) for headlines, Inter for body, IBM Plex Mono for labels, specs and live numbers.</p>
+  <p class="sub">Archivo Expanded for headlines (robust, monumental), Inter for body, IBM Plex Mono for labels, specs and live numbers.</p>
   <div class="spec">
     <p class="d1">The world makes waste.<br><span class="g">We make</span> <span class="b">it valuable.</span></p>
-    <div class="lbl">Fraunces / display 56, weight 600, tracking -1</div>
+    <div class="lbl">Archivo Expanded / display 56, weight 700, tracking -1.4</div>
     <p class="d2">Two decades of turning waste into worth.</p>
-    <div class="lbl">Fraunces / heading 34, weight 600</div>
+    <div class="lbl">Archivo / heading 34, weight 700</div>
     <p class="bd">Pyroltech's thermochemical platform converts almost any organic or carbon-rich waste into clean carbon, fuels, energy and carbon-removal credits.</p>
     <div class="tnote">Inter / body 16, color sage #566159 &middot; line-height 1.65</div>
     <div class="tnote" style="color:var(--green-mid)">CLEANTECH FOR CLEAN WORLD &middot; IBM Plex Mono / eyebrow 12, +2 tracking, uppercase</div>
@@ -133,7 +147,7 @@
     Repo &rarr; <a href="https://github.com/rezalari/pyroltech-website">github.com/rezalari/pyroltech-website</a><br>
     Written design system &rarr; design-system/pyroltech/MASTER.md<br>
     Page template &rarr; templates/metallurgical-biocarbon.html<br>
-    Google Fonts &rarr; Fraunces + Inter + IBM Plex Mono
+    Google Fonts &rarr; Archivo Expanded + Archivo + Inter + IBM Plex Mono
   </p>
 </div>
 
